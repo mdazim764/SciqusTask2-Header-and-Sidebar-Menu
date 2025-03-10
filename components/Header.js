@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    paddingTop: 40, // Space for notch
-    height: 90, // Fixed height for background image
+    paddingTop: 20, // Space for notch
+    height: 70, // Fixed height for background image
   },
   logo: {
     fontSize: 20,

@@ -1,0 +1,124 @@
+{
+    "tickets": [
+      {
+        "id": "TT24/123",
+        "description": "Installation Issue",
+        "status": "In-Process"
+      },
+      {
+        "id": "TT24/124",
+        "description": "Login Issue",
+        "status": "Resolved"
+      },
+      {
+        "id": "TT24/125",
+        "description": "Network Issue",
+        "status": "Pending"
+      },
+      {
+        "id": "TT24/126",
+        "description": "Software Bug",
+        "status": "Pending"
+      },
+      {
+        "id": "TT24/127",
+        "description": "Hardware Issue",
+        "status": "In-Process"
+      },
+      {
+        "id": "TT24/128",
+        "description": "Database Error",
+        "status": "Pending"
+      },
+      {
+        "id": "TT24/129",
+        "description": "UI Glitch",
+        "status": "In-Process"
+      },
+      {
+        "id": "TT24/130",
+        "description": "Email Not Sending",
+        "status": "Resolved"
+      },
+      {
+        "id": "TT24/131",
+        "description": "Backup Failure",
+        "status": "Pending"
+      },
+      {
+        "id": "TT24/132",
+        "description": "License Renewal",
+        "status": "In-Process"
+      }
+    ],
+    "quickActions": [
+      {
+        "id": "QA1",
+        "description": "Payment against Invoice No. INV/24/12 is pending.",
+        "date": "2021-06-01"
+      },
+      {
+        "id": "QA2",
+        "description": "Received request for document against ticket No. Tk/24/23422.",
+        "date": "2021-06-02"
+      },
+      {
+        "id": "QA3",
+        "description": "Renewal request for subscription ending in 3 days.",
+        "date": "2021-06-03"
+      },
+      {
+        "id": "QA4",
+        "description": "Password reset requested for user jdoe.",
+        "date": "2021-06-04"
+      },
+      {
+        "id": "QA5",
+        "description": "Server downtime scheduled for next week.",
+        "date": "2021-06-05"
+      },
+      {
+        "id": "QA6",
+        "description": "Upgrade required for new feature deployment.",
+        "date": "2021-06-06"
+      }
+    ],
+    "contacts": [
+      {
+        "id": "C1",
+        "role": "Account Manager",
+        "name": "Amey Borade"
+      },
+      {
+        "id": "C2",
+        "role": "Technical Help",
+        "name": "Amey Borade"
+      },
+      {
+        "id": "C3",
+        "role": "Finance Help",
+        "name": "Amey Borade"
+      },
+      {
+        "id": "C4",
+        "role": "HR Help",
+        "name": "John Smith"
+      },
+      {
+        "id": "C5",
+        "role": "Security Help",
+        "name": "Jane Doe"
+      },
+      {
+        "id": "C6",
+        "role": "Legal Help",
+        "name": "Attorney Bob"
+      },
+      {
+        "id": "C7",
+        "role": "Sales Help",
+        "name": "Sara Sales"
+      }
+    ]
+  }
+  

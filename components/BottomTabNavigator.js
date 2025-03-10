@@ -6,7 +6,7 @@ import {TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from './HomeScreen';
-import Sidebar from './Sidebar';
+import Sidebar from './components/Sidebar';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
