@@ -1,0 +1,133 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "All",
+      "image": "https://as2.ftcdn.net/jpg/02/93/65/37/1000_F_293653788_YL6CjAE71vxrTNPJ80toq645NBTVw2oL.jpg"
+    },
+    {
+      "id": 1,
+      "name": "Clothes",
+      "image": "https://i.imgur.com/UsFIvYs.jpeg"
+    },
+    {
+      "id": 2,
+      "name": "Electronics",
+      "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQCSMnLanNbjS4Qp5RSC5ncMxMkfzaBcjnareOohPz7KxgTBF4R8ohV_7h90F0QPJN6tQdB3PtqapVij_0EJeZGHrVxBgSNfxQmCs92Wv7cV8YernK5CINt83nNhXqrw0-wLYNreMgDsg&usqp=CAc"
+    },
+    {
+      "id": 3,
+      "name": "Fitness",
+      "image": "https://ui3.assets-asda.com/dm/240490-home-gym-equipment__small-square_GL?scl=1"
+    },
+    {
+      "id": 4,
+      "name": "Accessories",
+      "image": "https://res.cloudinary.com/hamstech/images/w_720,h_480/f_auto,q_auto/v1641795774/Hamstech%20App/Fashion-Accessories/Fashion-Accessories.jpg?_i=AA"
+    },
+    {
+      "id": 5,
+      "name": "Footwear",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnIXmtR6WE7FKjpvtq4pRNms4X246yPTMn-FbReUx8Y6PgH0mYlvuwtUtOzfskY1lO2Io&usqp=CAU"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "title": "Classic Olive Chino Shorts",
+      "description": "Elevate your casual wardrobe...",
+      "category": "Clothes",
+      "price": 843,
+      "rating": 4.3,
+      "images": [
+        "https://i.imgur.com/UsFIvYs.jpeg"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Classic High-Waisted Athletic Shorts",
+      "description": "Stay comfortable and stylish...",
+      "category": "Clothes",
+      "price": 943,
+      "rating": 4.1,
+      "images": [
+        "https://i.imgur.com/eGOUveI.jpeg",
+        "https://i.imgur.com/UcsGO7E.jpeg"
+      ]
+    },
+    {
+        "id": 3,
+        "title": "Wireless Bluetooth Headphones",
+        "description": "Over-ear noise cancelling headphone...",
+        "category": "Electronics",
+        "rating": 4.3,
+        "price": 1299,
+        "images": [
+            "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQCSMnLanNbjS4Qp5RSC5ncMxMkfzaBcjnareOohPz7KxgTBF4R8ohV_7h90F0QPJN6tQdB3PtqapVij_0EJeZGHrVxBgSNfxQmCs92Wv7cV8YernK5CINt83nNhXqrw0-wLYNreMgDsg&usqp=CAc"
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Smart Watch Series 5",
+        "description": "GPS, heart rate monitoring, fitness tracking...",
+        "category": "Electronics",
+        "rating": 4.5,
+        "price": 2499,
+        "images": ["https://rukminim2.flixcart.com/image/850/1000/xif0q/shopsy-smartwatch/x/m/i/1-99-android-ios-t800-smart-watch-t10-siacart-yes-original-imagv4up3hvefksq.jpeg?q=90&crop=falsehttps://rukminim2.flixcart.com/image/850/1000/xif0q/shopsy-smartwatch/x/m/i/1-99-android-ios-t800-smart-watch-t10-siacart-yes-original-imagv4up3hvefksq.jpeg?q=90&crop=false"]
+      },
+      {
+        "id": 5,
+        "title": "Running Shoes",
+        "description": "Lightweight, cushioned running shoes...",
+        "category": "Fitness",
+        "rating": 4.1,
+        "price": 999,
+        "images": ["https://m.media-amazon.com/images/I/81o8bHAXG3L._AC_UY1000_.jpg"]
+      },
+      {
+        "id": 6,
+        "title": "Yoga Mat",
+        "description": "Non-slip, eco-friendly yoga mat...",
+        "category": "Fitness",
+        "rating": 4.6,
+        "price": 899,
+        "images": ["https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR4vjqvbxOsQ1rfWef3vpF8KBEzBQAVaEZtzK1e2DRGykhJrmsJZeIAdIRswuZDoUZ5ez1R1UAVvjL74GcYQuAnrajRysVDNY1QhTLkXV2AP97DWJNu8hC97O4-VLerK85y5yy8IrE&usqp=CAc"]
+      },
+      {
+        "id": 7,
+        "title": "Classic Leather Belt",
+        "description": "Genuine leather belt with a classic design...",
+        "category": "Accessories",
+        "rating": 4.2,
+        "price": 599,
+        "images": ["data:image/jpeg;base64,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"]
+      },
+      {
+        "id": 8,
+        "title": "Classic Leather Wallet",
+        "description": "Genuine leather wallet with a classic design...",
+        "category": "Accessories",
+        "rating": 4.4,
+        "price": 399,
+        "images": ["data:image/jpeg;base64,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"]
+      },
+      {
+        "id": 9,
+        "title": "Leather Belt",
+        "description": "Genuine leather belt with a stylish design...",
+        "category": "Accessories",
+        "rating": 4.1,
+        "price": 299,
+        "images": ["https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQgmCJrgFi2MsQWmT6EAG_ia05bB9sM8PxK2KIdJA3W99PEbeU9pzbaB4FSdyrHE2cH6S2_2y6rzkDrFAVvzj6JrkUm-KeBTWb0fGZWpdzN3oE9dzs69qLY"]
+      },
+      {
+        "id": 10,
+        "title": "Leather Shoes",
+        "description": "Genuine leather shoes with a stylish design...",
+        "category": "Footwear",
+        "rating": 4.3,
+        "price": 999,
+        "images": ["https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSW8lDMr2GoTiPwJupO08bdKylDinEzEFuVnu73LFA0LjjAwgRzylNpPcKCk5_ocZ6z070T6WNew8MMs-YK32uCIK939rz4nH2TmcjiLjtG6jbsLB4NxD8C"]
+      }
+  ]
+}

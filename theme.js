@@ -1,31 +1,28 @@
 // theme.js
-import {DefaultTheme} from 'react-native-paper';
+import {MD3LightTheme} from 'react-native-paper';
 
-// The font family name should match the linked font's name exactly
-// If you have multiple weights (Regular, Bold, etc.), define them here
 export const theme = {
-  ...DefaultTheme,
-  fonts: {
-    regular: {
-      fontFamily: 'Poppins',
-    },
-    medium: {
-      fontFamily: 'Poppins',
-    },
-    light: {
-      fontFamily: 'Poppins',
-    },
-    thin: {
-      fontFamily: 'Poppins',
-    },
-    bold: {
-      fontFamily: 'Poppins',
-    },
-  },
-  // You can also override Paper colors if you want
+  ...MD3LightTheme,
   colors: {
-    ...DefaultTheme.colors,
+    ...MD3LightTheme.colors,
     primary: '#1568ed',
     accent: '#6b5b95',
+  },
+  fonts: {
+    ...MD3LightTheme.fonts,
+    // Add or override MD3 variants:
+    labelLarge: {
+      fontFamily: 'Poppins', // Must match the linked font name
+      fontSize: 16,
+      lineHeight: 24,
+      fontWeight: '500',
+    },
+    // If you want to define your own, e.g., bodyMedium, bodySmall, etc.
+    bodyMedium: {
+      fontFamily: 'Poppins',
+      fontSize: 14,
+      lineHeight: 20,
+    },
+    // You can override as many variants as you want here...
   },
 };

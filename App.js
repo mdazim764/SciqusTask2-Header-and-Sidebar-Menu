@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {theme} from './theme';
 import HomeScreen from './screens/HomeScreen';
 import RaiseTicketScreen from './screens/RaiseTicketScreen';
+import CatalogScreen from './screens/CatalogScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ const App = () => {
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="RaiseTicket" component={RaiseTicketScreen} />
+          <Stack.Screen name="Catalog" component={CatalogScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

@@ -18,7 +18,10 @@ const TopActionButtons = () => {
         <Icon name="work" size={40} color="#6b5b95" />
         <Text style={styles.cardText}>Raise a Ticket</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate('Catalog')} // Navigate
+      >
         <Icon name="category" size={40} color="#6b5b95" />
         <Text style={styles.cardText}>Catalogue</Text>
       </TouchableOpacity>
