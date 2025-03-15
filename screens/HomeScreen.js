@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import TopActionButtons from '../components/TopActionButtons';
@@ -16,20 +17,21 @@ const HomeScreen = () => {
       {/* Fixed Header */}
       <Header />
 
-      {/* Outer ScrollView (with nestedScrollEnabled) */}
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        nestedScrollEnabled={true}>
-        {/* Title */}
-        <View style={styles.content}>
-          <Text style={styles.title}>How Can We Help You?</Text>
+      {/* Outer ScrollView */}
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Wrap main content in a responsive container */}
+        <View style={styles.resContainer}>
+          {/* Title */}
+          <View style={styles.content}>
+            <Text style={styles.title}>How Can We Help You?</Text>
+          </View>
+
+          {/* Top Action Buttons */}
+          <TopActionButtons />
+
+          {/* 3 Tables */}
+          <TablesTicketActionCon data={data} />
         </View>
-
-        {/* TOP ACTION BUTTONS */}
-        <TopActionButtons />
-
-        {/* Main Content Columns (3 Tables) */}
-        <TablesTicketActionCon data={data} />
       </ScrollView>
 
       {/* Sidebar (Show if menuOpen) */}
@@ -39,7 +41,7 @@ const HomeScreen = () => {
         </View>
       )}
 
-      {/* Menu Button to Toggle Sidebar */}
+      {/* Menu Button */}
       <TouchableOpacity
         style={styles.menuButton}
         onPress={() => setMenuOpen(!menuOpen)}>
@@ -50,17 +52,21 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  /* Main container and scroll setup */
-  container: {
-    flex: 1,
-  },
+  container: {flex: 1},
+
   scrollContent: {
     flexGrow: 1,
     paddingBottom: 0,
     paddingHorizontal: 5,
   },
 
-  /* Header Title Section */
+  // The new style: limit max width and center it
+  resContainer: {
+    alignSelf: 'center', // center horizontally
+    width: '100%', // default to full width
+    maxWidth: 900, // or any max you prefer
+  },
+
   content: {
     padding: 10,
     alignItems: 'center',
@@ -74,19 +80,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  /* Sidebar Container */
   sidebarContainer: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: '60%',
+    width: 250,
     height: '100%',
     backgroundColor: '#8A2BE2',
     elevation: 5,
     zIndex: 9999,
   },
 
-  /* Menu Button */
   menuButton: {
     position: 'absolute',
     bottom: 5,

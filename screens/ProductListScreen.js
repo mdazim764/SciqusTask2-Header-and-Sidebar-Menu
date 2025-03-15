@@ -7,17 +7,19 @@ import {
   StyleSheet,
   FlatList,
   TextInput,
+  useWindowDimensions,
 } from 'react-native';
 import {Modal, Portal} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 
-import data from '../data/catalog.json'; // { categories, products }
+import data from '../data/catalog.json'; // Single JSON { categories, products }
 import FilterPanel from '../components/FilterPanel';
+import {Rating} from '@kolking/react-native-rating';
 
-export default function CatalogScreen() {
-  const navigation = useNavigation();
-
+export default function ProductListScreen() {
   const {categories, products} = data;
+  const navigation = useNavigation();
 
   // Filter states
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -27,7 +29,7 @@ export default function CatalogScreen() {
   const [rating, setRating] = useState('Any');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // If any filter is active
+  // Check if we have an active filter
   const isFiltersActive =
     category !== 'All' ||
     rating !== 'Any' ||
@@ -35,7 +37,6 @@ export default function CatalogScreen() {
     maxPrice !== '' ||
     searchTerm !== '';
 
-  // Toggle the filters modal
   const openFilters = () => setFiltersVisible(true);
   const closeFilters = () => setFiltersVisible(false);
 
@@ -57,29 +58,95 @@ export default function CatalogScreen() {
     setFiltersVisible(false);
   };
 
-  // When tapping a category in the horizontal list
+  // Category slider tap
   const handleCategoryPress = catName => {
-    // If tapping the same category again, revert to 'All'
     setCategory(catName === category ? 'All' : catName);
   };
 
-  // If you want to filter categories by the searchTerm, do so here
-  // We'll keep it simple and not filter categories in this snippet
-  const filteredCategories = categories;
+  // Filter categories if they or their products match the searchTerm
+  const filteredCategories = categories.filter(cat => {
+    const catNameMatch = cat.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
 
-  // Subset of products for the chosen category
-  const categoryProducts = products.filter(p => p.category === category);
-  // Show up to 4 items
-  const previewProducts = categoryProducts.slice(0, 4);
+    const hasProductMatch = products.some(
+      p =>
+        p.category === cat.name &&
+        p.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
 
-  // Only show if category != 'All' and there's at least 1 product
-  const showCategoryPreview = category !== 'All' && categoryProducts.length > 0;
+    return catNameMatch || hasProductMatch;
+  });
+
+  // Filter the products
+  const filteredProducts = products.filter(prod => {
+    if (category !== 'All' && prod.category !== category) {
+      return false;
+    }
+    if (minPrice && prod.price < Number(minPrice)) {
+      return false;
+    }
+    if (maxPrice && prod.price > Number(maxPrice)) {
+      return false;
+    }
+    if (rating !== 'Any' && prod.rating < parseFloat(rating)) {
+      return false;
+    }
+
+    const matchSearch =
+      prod.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      prod.category.toLowerCase().includes(searchTerm.toLowerCase());
+    if (!matchSearch && searchTerm) {
+      return false;
+    }
+
+    return true;
+  });
+
+  // Use dimension-based logic to decide how many columns
+  const {width} = useWindowDimensions();
+  const isTablet = width >= 768; // or another breakpoint if you prefer
+  const numColumns = isTablet ? 4 : 2; // 4 columns on tablet, 2 on phone
+
+  // We also limit card width so they don't stretch too wide
+  const cardMaxWidth = 320;
+  const cardWidth = Math.min((width - 40) / numColumns, cardMaxWidth);
+
+  // Render each product
+  const renderProductItem = ({item}) => {
+    const firstImage =
+      item.images && item.images.length > 0
+        ? item.images[0]
+        : 'https://i.imgur.com/placeholder.png';
+
+    return (
+      <TouchableOpacity
+        style={[styles.productCard, {width: cardWidth}]}
+        onPress={() => {
+          navigation.navigate('ProductDetail', {productId: item.id});
+        }}>
+        <Image source={{uri: firstImage}} style={styles.productImage} />
+        <View style={styles.productInfo}>
+          <Text style={styles.productTitle}>{item.title}</Text>
+          <Text>{item.description}</Text>
+          <Text style={styles.productPrice}>₹{item.price}</Text>
+          <Text style={styles.productCategory}>{item.category}</Text>
+          {/* Example rating usage
+          <View style={styles.ratingRow}>
+            <Text style={styles.productRating}>Rating: {item.rating}</Text>
+            <Rating size={15} rating={item.rating} variant="stars" />
+          </View>
+          */}
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.headerRow}>
-        <Text style={styles.headerText}>Product Catalogue</Text>
+        <Text style={styles.headerText}>Product List</Text>
 
         {isFiltersActive && (
           <TouchableOpacity
@@ -94,15 +161,15 @@ export default function CatalogScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Subheader (filter info) */}
+      {/* Subheader with filter info */}
       <View style={styles.currentFilters}>
         <Text style={styles.currentFiltersText}>
           Category: {category} | Price: {minPrice || '0'} - {maxPrice || '∞'} |
-          Rating: {rating}
+          Rating: {rating} | Search: {searchTerm || 'N/A'}
         </Text>
       </View>
 
-      {/* Simple search input for product/category name (if needed) */}
+      {/* Search input */}
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -140,82 +207,27 @@ export default function CatalogScreen() {
         />
       </View>
 
-      {/* Category preview: up to 4 products */}
-      {showCategoryPreview && (
-        <View style={styles.categoryPreviewContainer}>
-          <Text style={styles.previewHeader}>{category} - Quick View</Text>
-
-          <FlatList
-            data={previewProducts}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => {
-              const firstImage =
-                item.images && item.images.length > 0
-                  ? item.images[0]
-                  : 'https://i.imgur.com/placeholder.png';
-
-              return (
-                <TouchableOpacity
-                  style={styles.previewItem}
-                  onPress={() => {
-                    // Navigate to ProductDetail screen, passing productId
-                    navigation.navigate('ProductDetail', {productId: item.id});
-                  }}>
-                  <Image
-                    source={{uri: firstImage}}
-                    style={styles.previewImage}
-                  />
-                  <Text style={styles.previewTitle}>{item.title}</Text>
-                </TouchableOpacity>
-              );
-            }}
-          />
-
-          {/* "View More" button if at least 1 product */}
-          {categoryProducts.length >= 1 && (
-            <TouchableOpacity
-              style={styles.viewAllButton}
-              onPress={() => {
-                // Navigate to ProductList with the selected category
-                // Also pass minPrice, maxPrice, rating, searchTerm if needed
-                navigation.navigate('ProductList', {
-                  category,
-                  minPrice,
-                  maxPrice,
-                  rating,
-                  searchTerm,
-                });
-              }}>
-              <Text style={styles.viewAllText}>View More</Text>
-            </TouchableOpacity>
-          )}
+      {/* 2- or 4-Column Product Grid */}
+      {filteredProducts.length === 0 ? (
+        <View style={styles.noProductTextContainer}>
+          <Text style={styles.noProductText}>No products found</Text>
         </View>
-      )}
-
-      {/* If category == 'All', let user see "All" in ProductList */}
-      {category === 'All' && (
-        <TouchableOpacity
-          style={[styles.viewAllButton, {margin: 10}]}
-          onPress={() => {
-            navigation.navigate('ProductList', {
-              category: 'All',
-              minPrice,
-              maxPrice,
-              rating,
-              searchTerm,
-            });
-          }}>
-          <Text style={styles.viewAllText}>View All Products</Text>
-        </TouchableOpacity>
+      ) : (
+        <FlatList
+          data={filteredProducts}
+          keyExtractor={item => item.id.toString()}
+          numColumns={numColumns}
+          contentContainerStyle={styles.productListContent}
+          columnWrapperStyle={styles.columnWrapper}
+          renderItem={renderProductItem}
+        />
       )}
 
       {/* Filters Modal */}
       <Portal>
         <Modal
           visible={filtersVisible}
-          onDismiss={closeFilters}
+          onDismiss={() => setFiltersVisible(false)}
           contentContainerStyle={styles.modalContainer}>
           <FilterPanel
             category={category}
@@ -223,7 +235,7 @@ export default function CatalogScreen() {
             maxPrice={maxPrice}
             rating={rating}
             onApply={handleApplyFilters}
-            onCancel={closeFilters}
+            onCancel={() => setFiltersVisible(false)}
           />
         </Modal>
       </Portal>
@@ -279,10 +291,10 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 
-  /* Simple search bar */
+  /* Search bar */
   searchContainer: {
-    padding: 10,
     backgroundColor: '#fff',
+    padding: 10,
   },
   searchInput: {
     backgroundColor: '#eee',
@@ -291,7 +303,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  /* Category slider */
+  /* Category Slider */
   categoryListContainer: {
     height: 100,
   },
@@ -322,47 +334,62 @@ const styles = StyleSheet.create({
     color: '#8a2be2',
   },
 
-  /* Category preview container */
-  categoryPreviewContainer: {
-    backgroundColor: '#fff',
-    marginHorizontal: 10,
-    marginVertical: 5,
-    borderRadius: 8,
+  /* 2- or 4-column grid */
+  productListContent: {
     padding: 10,
-    elevation: 2,
+    alignItems: 'center',
   },
-  previewHeader: {
+  columnWrapper: {
+    justifyContent: 'flex-start',
+  },
+  productCard: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    overflow: 'hidden',
+    elevation: 2,
+    margin: 5,
+  },
+  productImage: {
+    width: '100%',
+    height: 170,
+  },
+  productInfo: {
+    padding: 10,
+  },
+  productTitle: {
     fontWeight: 'bold',
     fontSize: 14,
-    marginBottom: 8,
+    marginBottom: 2,
   },
-  previewItem: {
-    width: 90,
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  previewImage: {
-    width: 60,
-    height: 60,
-    marginBottom: 5,
-    borderRadius: 30,
-    backgroundColor: '#ddd',
-  },
-  previewTitle: {
-    fontSize: 11,
-    textAlign: 'center',
-  },
-  viewAllButton: {
-    marginTop: 5,
-    padding: 8,
-    backgroundColor: '#d1d1d1',
-    borderRadius: 6,
-    alignSelf: 'flex-start',
-  },
-  viewAllText: {
-    fontSize: 13,
-    color: '#333',
+  productPrice: {
+    color: '#1568ed',
     fontWeight: '600',
+    marginBottom: 2,
+  },
+  productCategory: {
+    fontSize: 12,
+    color: '#999',
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  productRating: {
+    fontSize: 12,
+    marginRight: 5,
+  },
+
+  /* No products found */
+  noProductTextContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  noProductText: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: '#777',
   },
 
   /* Modal Container */

@@ -9,8 +9,33 @@ import {
   Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
 
 const Sidebar = ({visible, closeMenu}) => {
+  // Access the navigation object
+  const navigation = useNavigation();
+
+  // Define your menu items with a `route` property
+  const menuItems = [
+    {name: 'Home', icon: 'home', route: 'Home'},
+    {name: 'My Account', icon: 'person', route: 'Account'},
+    {name: 'Events', icon: 'event', route: 'Events'},
+    {name: 'Contacts', icon: 'contacts', route: 'Contacts'},
+    {name: 'Proposals', icon: 'work', route: 'Proposals'},
+    {name: 'My Tickets', icon: 'confirmation-number', route: 'Tickets'},
+
+    // NEW: Add a "YouTube Video" item
+    {name: 'YouTube Video', icon: 'ondemand-video', route: 'Video'},
+  ];
+
+  // Handler when a menu item is pressed
+  const handleMenuItemPress = item => {
+    closeMenu(); // close the sidebar
+    if (item.route) {
+      navigation.navigate(item.route); // navigate to the item's route
+    }
+  };
+
   return (
     <Modal
       visible={visible}
@@ -32,7 +57,7 @@ const Sidebar = ({visible, closeMenu}) => {
                 <TouchableOpacity
                   key={index}
                   style={styles.menuItem}
-                  onPress={closeMenu}>
+                  onPress={() => handleMenuItemPress(item)}>
                   <Icon name={item.icon} size={24} color="white" />
                   <Text style={styles.menuText}>{item.name}</Text>
                 </TouchableOpacity>
@@ -45,20 +70,11 @@ const Sidebar = ({visible, closeMenu}) => {
   );
 };
 
-const menuItems = [
-  {name: 'Home', icon: 'home'},
-  {name: 'My Account', icon: 'person'},
-  {name: 'Events', icon: 'event'},
-  {name: 'Contacts', icon: 'contacts'},
-  {name: 'Proposals', icon: 'work'},
-  {name: 'My Tickets', icon: 'confirmation-number'},
-];
-
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-    flexDirection: 'row', // Ensures sidebar aligns to the left
+    flexDirection: 'row',
   },
   sidebar: {
     width: 250,
@@ -67,7 +83,7 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     position: 'absolute',
-    left: 0, // Sidebar from the left
+    left: 0,
     top: 0,
     bottom: 0,
   },

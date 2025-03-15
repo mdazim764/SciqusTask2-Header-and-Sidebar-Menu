@@ -45,7 +45,7 @@ const RaiseTicketScreen = () => {
       businessImpact,
       details,
       associatedTicket,
-      files: selectedFiles, // array of file objects
+      files: selectedFiles,
     };
 
     console.log('Submitting ticket:', newTicket);
@@ -53,116 +53,133 @@ const RaiseTicketScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Raise a Ticket</Text>
+    <View style={styles.screenContainer}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Responsive container (limits width on tablets) */}
+        <View style={styles.resContainer}>
+          <Text style={styles.header}>Raise a Ticket</Text>
 
-      {/* Ticket Type */}
-      <Text style={styles.label}>Ticket Type</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={ticketType}
-          onValueChange={setTicketType}
-          style={styles.picker}>
-          <Picker.Item label="Select" value="" />
-          <Picker.Item label="Technical" value="technical" />
-          <Picker.Item label="Billing" value="billing" />
-          <Picker.Item label="Account" value="account" />
-        </Picker>
-      </View>
+          {/* Ticket Type */}
+          <Text style={styles.label}>Ticket Type</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={ticketType}
+              onValueChange={setTicketType}
+              style={styles.picker}>
+              <Picker.Item label="Select" value="" />
+              <Picker.Item label="Technical" value="technical" />
+              <Picker.Item label="Billing" value="billing" />
+              <Picker.Item label="Account" value="account" />
+            </Picker>
+          </View>
 
-      {/* Sub-type */}
-      <Text style={styles.label}>Sub-type</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={subType}
-          onValueChange={setSubType}
-          style={styles.picker}>
-          <Picker.Item label="Select" value="" />
-          <Picker.Item label="Installation Issue" value="installation" />
-          <Picker.Item label="Login Issue" value="login" />
-          <Picker.Item label="Other" value="other" />
-        </Picker>
-      </View>
+          {/* Sub-type */}
+          <Text style={styles.label}>Sub-type</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={subType}
+              onValueChange={setSubType}
+              style={styles.picker}>
+              <Picker.Item label="Select" value="" />
+              <Picker.Item label="Installation Issue" value="installation" />
+              <Picker.Item label="Login Issue" value="login" />
+              <Picker.Item label="Other" value="other" />
+            </Picker>
+          </View>
 
-      {/* Priority */}
-      <Text style={styles.label}>Priority</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={priority}
-          onValueChange={setPriority}
-          style={styles.picker}>
-          <Picker.Item label="Select" value="" />
-          <Picker.Item label="Low" value="low" />
-          <Picker.Item label="Medium" value="medium" />
-          <Picker.Item label="High" value="high" />
-        </Picker>
-      </View>
+          {/* Priority */}
+          <Text style={styles.label}>Priority</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={priority}
+              onValueChange={setPriority}
+              style={styles.picker}>
+              <Picker.Item label="Select" value="" />
+              <Picker.Item label="Low" value="low" />
+              <Picker.Item label="Medium" value="medium" />
+              <Picker.Item label="High" value="high" />
+            </Picker>
+          </View>
 
-      {/* Business Impact */}
-      <Text style={styles.label}>Business Impact</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={businessImpact}
-          onValueChange={setBusinessImpact}
-          style={styles.picker}>
-          <Picker.Item label="Select" value="" />
-          <Picker.Item label="Minor" value="minor" />
-          <Picker.Item label="Moderate" value="moderate" />
-          <Picker.Item label="Severe" value="severe" />
-        </Picker>
-      </View>
+          {/* Business Impact */}
+          <Text style={styles.label}>Business Impact</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={businessImpact}
+              onValueChange={setBusinessImpact}
+              style={styles.picker}>
+              <Picker.Item label="Select" value="" />
+              <Picker.Item label="Minor" value="minor" />
+              <Picker.Item label="Moderate" value="moderate" />
+              <Picker.Item label="Severe" value="severe" />
+            </Picker>
+          </View>
 
-      {/* Details (multiline) */}
-      <Text style={styles.label}>Details</Text>
-      <TextInput
-        style={styles.textArea}
-        multiline
-        placeholder="Enter more details about the issue..."
-        value={details}
-        onChangeText={setDetails}
-      />
+          {/* Details (multiline) */}
+          <Text style={styles.label}>Details</Text>
+          <TextInput
+            style={styles.textArea}
+            multiline
+            placeholder="Enter more details about the issue..."
+            value={details}
+            onChangeText={setDetails}
+          />
 
-      {/* Associated with (Select previous ticket) */}
-      <Text style={styles.label}>Associated with</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={associatedTicket}
-          onValueChange={setAssociatedTicket}
-          style={styles.picker}>
-          <Picker.Item label="Select previous ticket" value="" />
-          <Picker.Item label="TT24/123" value="TT24/123" />
-          <Picker.Item label="TT24/124" value="TT24/124" />
-          <Picker.Item label="TT24/125" value="TT24/125" />
-        </Picker>
-      </View>
+          {/* Associated with (Select previous ticket) */}
+          <Text style={styles.label}>Associated with</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={associatedTicket}
+              onValueChange={setAssociatedTicket}
+              style={styles.picker}>
+              <Picker.Item label="Select previous ticket" value="" />
+              <Picker.Item label="TT24/123" value="TT24/123" />
+              <Picker.Item label="TT24/124" value="TT24/124" />
+              <Picker.Item label="TT24/125" value="TT24/125" />
+            </Picker>
+          </View>
 
-      {/* Upload Files */}
-      <Text style={styles.label}>Upload Files</Text>
-      <TouchableOpacity style={styles.dropArea} onPress={handleFilePick}>
-        <Text style={styles.dropText}>Drop file here OR Upload File</Text>
-      </TouchableOpacity>
+          {/* Upload Files */}
+          <Text style={styles.label}>Upload Files</Text>
+          <TouchableOpacity style={styles.dropArea} onPress={handleFilePick}>
+            <Text style={styles.dropText}>Drop file here OR Upload File</Text>
+          </TouchableOpacity>
 
-      {/* Display selected file names */}
-      {selectedFiles.map((file, index) => (
-        <Text key={index} style={styles.fileName}>
-          {file.name || file.uri}
-        </Text>
-      ))}
+          {/* Display selected file names */}
+          {selectedFiles.map((file, index) => (
+            <Text key={index} style={styles.fileName}>
+              {file.name || file.uri}
+            </Text>
+          ))}
 
-      {/* Submit Button */}
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.submitText}>Submit</Text>
-      </TouchableOpacity>
-    </ScrollView>
+          {/* Submit Button */}
+          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+            <Text style={styles.submitText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
 export default RaiseTicketScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
+  // Outer container (full screen)
+  screenContainer: {
+    flex: 1,
     backgroundColor: '#f8f8f8',
+  },
+  // The ScrollView content container
+  scrollContent: {
+    flexGrow: 1,
+  },
+  // The responsive container that limits width on tablets
+  resContainer: {
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 600, // or any max width you prefer
+    padding: 20,
   },
   header: {
     fontSize: 22,
